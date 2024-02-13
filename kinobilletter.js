@@ -9,7 +9,7 @@ class kinobillett{
     }
     toString() {
         return `Film: ${this.film}, Antall: ${this.antall}, Fornavn: ${this.fornavn}, Etternavn: ${this.etternavn},
-        Telefonnr: ${this.telefonnr}, Epost: ${this.epost}`;
+        Telefonnr: ${this.telefonnr}, Epost: ${this.epost} <br>`;
     }
 }
 let billetter = [];
