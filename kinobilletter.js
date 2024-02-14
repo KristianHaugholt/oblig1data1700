@@ -15,14 +15,22 @@ class kinobillett{
 let billetter = [];
 document.querySelector('.billett-kjop').addEventListener('click', ()=>{
     const film = document.querySelector('.film').value;
-    const antall = document.querySelector('.antall').value;
+    const antall = parseInt(document.querySelector('.antall').value);
     const fornavn = document.querySelector('.fornavn').value;
     const etternavn = document.querySelector('.etternavn').value;
-    const telefonnr = document.querySelector('.telefonnr').value;
+    const telefonnr = parseInt(document.querySelector('.telefonnr').value);
     const epost = document.querySelector('.epost').value;
-    const nyBillett = new kinobillett(film, antall, fornavn, etternavn, telefonnr, epost);
-    billetter.push(nyBillett);
-    document.querySelector('.alle-billetter').innerHTML = billetter.toString();
+
+    let godkjent = TRUE;
+    if (typeof film!="string"){
+        godkjent=FALSE;
+        document.querySelector('.film-feil').innerHTML = 'Film må være String';
+    }
+    if (godkjent){
+        const nyBillett = new kinobillett(film, antall, fornavn, etternavn, telefonnr, epost);
+        billetter.push(nyBillett);
+        document.querySelector('.alle-billetter').innerHTML = billetter.toString();
+    }
 });
 document.querySelector('.billett-slett').addEventListener('click', ()=>{
     billetter = [];
