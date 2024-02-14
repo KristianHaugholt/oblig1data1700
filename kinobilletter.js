@@ -21,16 +21,43 @@ document.querySelector('.billett-kjop').addEventListener('click', ()=>{
     const telefonnr = parseInt(document.querySelector('.telefonnr').value);
     const epost = document.querySelector('.epost').value;
 
-    let godkjent = TRUE;
-    if (typeof film!="string"){
-        godkjent=FALSE;
-        document.querySelector('.film-feil').innerHTML = 'Film må være String';
-    }
+    let godkjent = true;
+    if (film.length===0){
+        godkjent=false;
+        document.querySelector('.film-feil').innerHTML = 'Film må være lengre enn null karakterer';
+    } else {document.querySelector('.film-feil').innerHTML = ''}
+
+    if (!antall){
+        godkjent=false;
+        document.querySelector('.antall-feil').innerHTML = 'må skrive antall med siffere';
+    } else {document.querySelector('.antall-feil').innerHTML = ''}
+
+    if (fornavn.length===0){
+        godkjent=false;
+        document.querySelector('.fornavn-feil').innerHTML = 'Fornavn må være lengre enn null karakterer';
+    } else {document.querySelector('.fornavn-feil').innerHTML = ''}
+
+    if (etternavn.length===0){
+        godkjent=false;
+        document.querySelector('.etternavn-feil').innerHTML = 'Film må være lengre enn null karakterer';
+        } else {document.querySelector('.etternavn-feil').innerHTML = ''}
+
+    if (telefonnr.toString().length!==8){
+        godkjent=false;
+        document.querySelector('.telefon-feil').innerHTML = 'må skrive telefonnr med 8 siffere';
+    } else {document.querySelector('.telefon-feil').innerHTML = ''}
+
+    if (!epost.includes('@')){
+        godkjent=false;
+        document.querySelector('.epost-feil').innerHTML = 'må skrive alfakrøll i epost';
+    } else {document.querySelector('.epost-feil').innerHTML = ''}
+
     if (godkjent){
         const nyBillett = new kinobillett(film, antall, fornavn, etternavn, telefonnr, epost);
         billetter.push(nyBillett);
         document.querySelector('.alle-billetter').innerHTML = billetter.toString();
     }
+    console.log(film.length);
 });
 document.querySelector('.billett-slett').addEventListener('click', ()=>{
     billetter = [];
