@@ -1,3 +1,20 @@
+function slettData(){
+    document.querySelector('.film').value = '';
+    document.querySelector('.antall').value = '';
+    document.querySelector('.fornavn').value = '';
+    document.querySelector('.etternavn').value = '';
+    document.querySelector('.telefonnr').value = '';
+    document.querySelector('.epost').value = '';
+}
+function slettFeilmelding(){
+    document.querySelector('.film-feil').innerHTML = '';
+    document.querySelector('.antall-feil').innerHTML = '';
+    document.querySelector('.fornavn-feil').innerHTML = '';
+    document.querySelector('.etternavn-feil').innerHTML = '';
+    document.querySelector('.telefon-feil').innerHTML = '';
+    document.querySelector('.epost-feil').innerHTML = '';
+}
+
 class kinobillett{
     constructor(film, antall, fornavn, etternavn, telefonnr, epost){
         this.film = film;
@@ -56,10 +73,13 @@ document.querySelector('.billett-kjop').addEventListener('click', ()=>{
         const nyBillett = new kinobillett(film, antall, fornavn, etternavn, telefonnr, epost);
         billetter.push(nyBillett);
         document.querySelector('.alle-billetter').innerHTML = billetter.toString();
+        slettData();
     }
     console.log(film.length);
 });
 document.querySelector('.billett-slett').addEventListener('click', ()=>{
     billetter = [];
     document.querySelector('.alle-billetter').innerHTML = billetter.toString();
+    slettData();
+    slettFeilmelding();
 });
