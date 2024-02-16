@@ -43,46 +43,47 @@ document.querySelector('.billett-kjop').addEventListener('click', ()=>{ //if buy
     const telefonnr = document.querySelector('.telefonnr').value;
     const epost = document.querySelector('.epost').value;
 
-    let godkjent = true;        //initializing variable that becomes false if the inputs isn't 
-    if (film.length===0){
-        godkjent=false;
-        document.querySelector('.film-feil').innerHTML = 'Film må være lengre enn null karakterer';
-    } else {document.querySelector('.film-feil').innerHTML = ''}
+    let godkjent = true;        //initializing variable that becomes false if the inputs isn't
 
-    if (!Number.isInteger(antall)){
+    if (film.length===0){ //if the input field is empty an error masseage appears next to the input field
+        godkjent=false;
+        document.querySelector('.film-feil').innerHTML = 'Film må være lengre enn null karakterer'; //
+    } else {document.querySelector('.film-feil').innerHTML = ''}      //otherwise the error message is deleted
+
+    if (!Number.isInteger(antall)){     //if the number isn't an integer an error masseage appears next to the input field
         godkjent=false;
         document.querySelector('.antall-feil').innerHTML = 'Må skrive heltall med siffere';
-    } else {document.querySelector('.antall-feil').innerHTML = ''}
+    } else {document.querySelector('.antall-feil').innerHTML = ''}      //otherwise the error message is deleted
 
-    if (fornavn.length===0){
+    if (fornavn.length===0){    //if the input field is empty an error masseage appears next to the input field
         godkjent=false;
         document.querySelector('.fornavn-feil').innerHTML = 'Fornavn må være lengre enn null karakterer';
-    } else {document.querySelector('.fornavn-feil').innerHTML = ''}
+    } else {document.querySelector('.fornavn-feil').innerHTML = ''}     //otherwise the error message is deleted
 
-    if (etternavn.length===0){
+    if (etternavn.length===0){  //if the input field is empty an error masseage appears next to the input field
         godkjent=false;
         document.querySelector('.etternavn-feil').innerHTML = 'Film må være lengre enn null karakterer';
-        } else {document.querySelector('.etternavn-feil').innerHTML = ''}
+    } else {document.querySelector('.etternavn-feil').innerHTML = ''}   //otherwise the error message is deleted
 
-    if (!validatePhone(telefonnr)){
+    if (!validatePhone(telefonnr)){     //uses the validatePhone function to see if the input is invalid, if it is an error masseage appears next to the input field
         godkjent=false;
         document.querySelector('.telefon-feil').innerHTML = 'Må skrive telefonnr med + og 10 siffere';
-    } else {document.querySelector('.telefon-feil').innerHTML = ''}
+    } else {document.querySelector('.telefon-feil').innerHTML = ''}     //otherwise the error message is deleted
 
-    if (!validateEmail(epost)){
+    if (!validateEmail(epost)){     //uses the validateEmail function to see if the input is invalid, if it is an error masseage appears next to the input field
         godkjent=false;
         document.querySelector('.epost-feil').innerHTML = 'Ikke godkjent epost';
-    } else {document.querySelector('.epost-feil').innerHTML = ''}
+    } else {document.querySelector('.epost-feil').innerHTML = ''}       //otherwise the error message is deleted
 
-    if (godkjent){
+    if (godkjent){      //if every input is valid the ticket is saved and added to the array, the array is written, and the input fields cleared
         const nyBillett = new kinobillett(film, antall, fornavn, etternavn, telefonnr, epost);
         billetter.push(nyBillett);
         document.querySelector('.alle-billetter').innerHTML = billetter.toString();
         slettData();
     }
-    console.log(film.length);
 });
 document.querySelector('.billett-slett').addEventListener('click', ()=>{
+    //when the delete button is clicked the array of tickets gets cleared and it's updated on screen
     billetter = [];
     document.querySelector('.alle-billetter').innerHTML = billetter.toString();
 });
