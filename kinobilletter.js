@@ -1,4 +1,4 @@
-function slettData(){
+function slettData(){                                   //function to clear the input fields
     document.querySelector('.film').value = '';
     document.querySelector('.antall').value = '';
     document.querySelector('.fornavn').value = '';
@@ -6,16 +6,20 @@ function slettData(){
     document.querySelector('.telefonnr').value = '';
     document.querySelector('.epost').value = '';
 }
-function slettFeilmelding(){
-    document.querySelector('.film-feil').innerHTML = '';
-    document.querySelector('.antall-feil').innerHTML = '';
-    document.querySelector('.fornavn-feil').innerHTML = '';
-    document.querySelector('.etternavn-feil').innerHTML = '';
-    document.querySelector('.telefon-feil').innerHTML = '';
-    document.querySelector('.epost-feil').innerHTML = '';
-}
 
-class kinobillett{
+const validateEmail = (email) => {              //function to validate email with regex
+    return email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+const validatePhone = (phonenr) => {          //function to validate phonenumber with regex
+    return phonenr.match(
+        /^[+]\d{10}$/
+    );
+};
+
+
+class kinobillett{          //ticket class with constructor and toString method
     constructor(film, antall, fornavn, etternavn, telefonnr, epost){
         this.film = film;
         this.antall = antall;
@@ -29,24 +33,25 @@ class kinobillett{
         Telefonnr: ${this.telefonnr}, Epost: ${this.epost} <br>`;
     }
 }
-let billetter = [];
-document.querySelector('.billett-kjop').addEventListener('click', ()=>{
+let billetter = [];     //empty array for tickets
+document.querySelector('.billett-kjop').addEventListener('click', ()=>{ //if buy ticket button is clicked
+    //getting the values from the input field
     const film = document.querySelector('.film').value;
-    const antall = parseInt(document.querySelector('.antall').value);
+    const antall = Number(document.querySelector('.antall').value); //converting to number so there's only digits
     const fornavn = document.querySelector('.fornavn').value;
     const etternavn = document.querySelector('.etternavn').value;
-    const telefonnr = parseInt(document.querySelector('.telefonnr').value);
+    const telefonnr = document.querySelector('.telefonnr').value;
     const epost = document.querySelector('.epost').value;
 
-    let godkjent = true;
+    let godkjent = true;        //initializing variable that becomes false if the inputs isn't 
     if (film.length===0){
         godkjent=false;
         document.querySelector('.film-feil').innerHTML = 'Film må være lengre enn null karakterer';
     } else {document.querySelector('.film-feil').innerHTML = ''}
 
-    if (!antall){
+    if (!Number.isInteger(antall)){
         godkjent=false;
-        document.querySelector('.antall-feil').innerHTML = 'må skrive antall med siffere';
+        document.querySelector('.antall-feil').innerHTML = 'Må skrive heltall med siffere';
     } else {document.querySelector('.antall-feil').innerHTML = ''}
 
     if (fornavn.length===0){
@@ -59,14 +64,14 @@ document.querySelector('.billett-kjop').addEventListener('click', ()=>{
         document.querySelector('.etternavn-feil').innerHTML = 'Film må være lengre enn null karakterer';
         } else {document.querySelector('.etternavn-feil').innerHTML = ''}
 
-    if (telefonnr.toString().length!==8){
+    if (!validatePhone(telefonnr)){
         godkjent=false;
-        document.querySelector('.telefon-feil').innerHTML = 'må skrive telefonnr med 8 siffere';
+        document.querySelector('.telefon-feil').innerHTML = 'Må skrive telefonnr med + og 10 siffere';
     } else {document.querySelector('.telefon-feil').innerHTML = ''}
 
-    if (!epost.includes('@')){
+    if (!validateEmail(epost)){
         godkjent=false;
-        document.querySelector('.epost-feil').innerHTML = 'må skrive alfakrøll i epost';
+        document.querySelector('.epost-feil').innerHTML = 'Ikke godkjent epost';
     } else {document.querySelector('.epost-feil').innerHTML = ''}
 
     if (godkjent){
@@ -80,6 +85,4 @@ document.querySelector('.billett-kjop').addEventListener('click', ()=>{
 document.querySelector('.billett-slett').addEventListener('click', ()=>{
     billetter = [];
     document.querySelector('.alle-billetter').innerHTML = billetter.toString();
-    slettData();
-    slettFeilmelding();
 });
